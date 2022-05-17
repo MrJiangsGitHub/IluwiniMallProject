@@ -1,27 +1,37 @@
 <template>
-    <div class="app">
-        <h1>hello vue2+vite</h1>
-        <router-link to="/">Home</router-link> |
-        <router-link to="/about">About</router-link> |
-        <router-link to="/test">test</router-link>
-        <router-view />
-
-        
-    </div>
+  <div class="app">
+    <van-nav-bar v-show="isnavbar" :title="title" left-text="返回" right-text="按钮" left-arrow  @click-left="$router.back()"/>
+    <router-view></router-view>
+  </div>
 </template>
 
 <script>
-    export default {
-        
-    }
-</script>
-<style lang="scss">
-    .App {
-        ul {
-            li {
-                list-style: none;
+export default {
+  data() {
+    return {
+      isnavbar:false,
+      title: "衣路维尼",
+    };
+  },
+   watch:{
+        "$route":{
+            handler:function(newRouter,oldRouter){
+                let {title,isnabbr} = newRouter.meta
+                this.title= title
+                if(isnabbr){
+                    this.isnavbar = false
+                }else{
+                     this.isnavbar = true
+                }
             }
         }
     }
+};
+</script>
+<style lang="scss">
+.app {
+  min-width: 350px;
+  max-width: 750px;
+  margin: auto;
+}
 </style>
-

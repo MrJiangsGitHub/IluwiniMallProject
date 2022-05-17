@@ -1,26 +1,62 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
-import Home from '../views/Home.vue' // 引入 Home页面组件
-import Test from '../views/Test.vue' // 引入 Test页面组件
+
 
 // 注册路由插件
 Vue.use(VueRouter)
 
-const routes = [{
+const routes = [
+    {
         path: '/',
-        name: 'Home',
-        component: Home
+        redirect: "/home/index",
     },
     {
-        path: '/about',
-        name: 'About',
-        component: () => import('../views/About.vue')
+        path: '/home',
+        component: () => import('../views/index.vue'),
+        children: [
+            {
+                path: 'index',
+                meta: {
+                    name: 'home',
+                    isnabbr: true
+                },
+                component: () => import('../views/home.vue'),
+            },
+            {
+                path: 'shopcar',
+
+                meta: {
+                    name: 'shopcar',
+                    isnabbr: true
+                },
+                component: () => import('../views/shopcar.vue')
+            },
+            {
+                path: 'myuser',
+                meta: {
+                    name: 'myuser',
+                    isnabbr: true
+
+                },
+                component: () => import('../views/myuser.vue')
+            }
+        ]
     },
     {
-        path: '/test',
-        name: 'Test',
-        component: Test
+        path: '/goods',
+        meta: {
+            title: '商品列表'
+        },
+        component: () => import('../views/goods.vue')
     },
+    {
+        path: '/goodsDetails',
+        meta: {
+            title: '商品详情'
+        },
+        component: () => import('../views/goodsDetails.vue')
+    }
+
 ]
 
 const router = new VueRouter({
