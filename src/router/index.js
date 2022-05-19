@@ -24,7 +24,6 @@ const routes = [
             },
             {
                 path: 'shopcar',
-
                 meta: {
                     name: 'shopcar',
                     isnabbr: true

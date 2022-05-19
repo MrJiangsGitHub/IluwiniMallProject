@@ -29,9 +29,17 @@ export default {
 };
 </script>
 <style lang="scss">
+@import'../src/asster/scss/common.scss';
+html{
+  // 让滚动事件丝滑效果
+  scroll-behavior: smooth;
+} 
 .app {
   min-width: 350px;
   max-width: 750px;
   margin: auto;
+}
+*{
+  box-sizing: border-box;
 }
 </style>

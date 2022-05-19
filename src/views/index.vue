@@ -4,7 +4,7 @@
        
     <van-tabbar v-model="active" active-color="#ee0a24" inactive-color="#000">
       <van-tabbar-item icon="home-o" to="/home/index">首页</van-tabbar-item>
-      <van-tabbar-item icon="search" to="/home/shopcar" badge="5">购物车</van-tabbar-item>
+      <van-tabbar-item icon="cart-o" to="/home/shopcar" badge="5">购物车</van-tabbar-item>
       <van-tabbar-item icon="friends-o" to="/home/myuser">个人中心</van-tabbar-item>
     </van-tabbar>
   </div>
