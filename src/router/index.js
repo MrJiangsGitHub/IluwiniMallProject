@@ -49,7 +49,8 @@ const routes = [
         component: () => import('../views/goods.vue')
     },
     {
-        path: '/goodsDetails',
+        path: '/goodsDetails/:id',
+        props:true,
         meta: {
             title: '商品详情'
         },

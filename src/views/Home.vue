@@ -18,7 +18,7 @@
 
     <!-- 九宫格 -->
     <van-grid :column-num="4">
-      <van-grid-item icon="photo-o" v-for="item in grid" :key="item.img">
+      <van-grid-item icon="photo-o" v-for="item in grid" :key="item.img" :to="item.to">
         <div class="grid-box">
           <img :src="item.img" alt="" />
           <div>{{ item.text }}</div>
@@ -29,25 +29,16 @@
     <van-divider>热门商品</van-divider>
     <!-- 商品列表 -->
     <div class="list">
-      <div class="list-box" v-for="item in goodslist" :key="item.id">
-        <div class="img-box">
-          <img v-lazy="item.img_url" alt="" />
-        </div>
-        <div class="list-text ellipsis_l1 ">
-          <span >{{ item.title }}</span>
-        </div>
-        <div class="list-pic">
-          <span class="pic">￥{{ item.sell_price }}.00</span>
-          <span class="buy">{{ item.buy }}人购买</span>
-        </div>
-      </div>
+      <!-- :data="item"传给goods组件进行通信 -->
+      <good v-for="item in goodslist" :key="item.id" :data="item" @goodsbtn="handlist"></good>
     </div>
     <!-- 回到顶部组件 -->
-    <BackTop :scrollTop="800"/>
+    <BackTop :scrollTop="800" />
   </div>
 </template>
 <script>
-import BackTop from'../components/BackTop.vue'
+import BackTop from "../components/BackTop.vue";
+import good from "../components/good.vue";
 import { fetchlunbo, fetchgoodslist } from "../api/home.js";
 import png1 from "../asster/images/1.png";
 import png2 from "../asster/images/2.png";
@@ -66,7 +57,7 @@ export default {
       page: 2,
       limit: 15,
       grid: [
-        { text: "衣路超市", img: png1 },
+        { text: "衣路超市", img: png1,to:"/goods" },
         { text: "衣路新闻", img: png2 },
         { text: "衣路生鲜", img: png3 },
         { text: "生活缴费", img: png4 },
@@ -90,10 +81,15 @@ export default {
       let { message } = await fetchgoodslist(this.page, this.limit);
       this.goodslist = message;
     },
+      handlist(data,event){
+        console.log(data.id);
+        this.$router.push('/goodsDetails/' + data.id)
+    }
   },
-  components:{
-    BackTop
-  }
+  components: {
+    BackTop,
+    good
+  },
 };
 </script>
 
@@ -102,46 +98,11 @@ export default {
   // 商品列表
   .list {
     display: flex;
-   flex-wrap: wrap;
-      justify-content: space-around;
-    background:#eae7e75e;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    background: #eae7e75e;
     padding-bottom: 50px;
-    .list-box {
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-      width: 49%;
-      padding: 6px;
-      border-radius: 4px;
-      background: #fff;
-      margin-bottom: 4px;
-      font-size: 14px;
-      .list-text{
-        font-size: 700;
-        margin-top: 6px;
-      }
-      .img-box {
-        height: 124px;
-        overflow: hidden;
-        width: 100%;
-        text-align: center;
-        img {
-          height: 100%;
-        }
-      }
-     
-     .list-pic{
-       display: flex;
-       justify-content: space-between;
-       margin-top: 6px;
-       .pic{
-         color: red;
-       }
-       .buy{
-             color: #666;
-       }
-     }
-    }
+    
   }
 
   // 九宫格
@@ -175,7 +136,6 @@ export default {
     width: 100%;
   }
   .serch {
-    // vertical-align: middle;
     display: flex;
     align-items: center;
     img {

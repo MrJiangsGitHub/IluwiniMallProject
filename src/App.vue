@@ -1,6 +1,6 @@
 <template>
   <div class="app">
-    <van-nav-bar v-show="isnavbar" :title="title" left-text="返回" right-text="按钮" left-arrow  @click-left="$router.back()"/>
+    <van-nav-bar v-show="isnavbar" :title="title" left-text="返回"  left-arrow  @click-left="$router.back()"/>
     <router-view></router-view>
   </div>
 </template>
@@ -28,8 +28,8 @@ export default {
     }
 };
 </script>
+
 <style lang="scss">
-@import'../src/asster/scss/common.scss';
 html{
   // 让滚动事件丝滑效果
   scroll-behavior: smooth;

@@ -5,9 +5,10 @@ import store from './store/index'
 import Vant from 'vant';
 import 'vant/lib/index.css';
 import './asster/scss/normalize.css'
+import'../src/asster/scss/common.scss';
+
 import { Lazyload } from 'vant';
 Vue.use(Vant);
-Vue.use(Lazyload);
 Vue.use(Lazyload, {
   lazyComponent: true,
 });
