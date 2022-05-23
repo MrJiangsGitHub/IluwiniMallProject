@@ -8,7 +8,7 @@
           <div class="area">
               <div class="price">
                 <span>&yen; {{item.sell_price}}</span>
-                <span>&yen; {{item.market_price}}</span>
+                <span class="mar">&yen; {{item.market_price}}</span>
               </div>
               <div class="info">
                 <span>热卖中</span>
@@ -49,7 +49,6 @@ export default {
         this.refreshing = false;
       }
       let { message } = await goodsListData(this.page, this.pagesize);
-      console.log(message);
       //   合并参数，把旧的值和新的值合并这样就不会出现id相同的情况了
       this.listData = [...this.listData, ...message];
       this.loading = false; //数据请求完毕加载完成关闭loading 
@@ -78,7 +77,6 @@ export default {
       this.onLoad();
     },
     handlist(data,event){
-        console.log(data.id);
         this.$router.push('/goodsDetails/' + data.id)
     }
   },
@@ -105,6 +103,9 @@ export default {
       display: flex;
       justify-content: space-between;
       color: red;
+      .mar{
+        text-decoration: line-through;
+      }
     }
     .info {
       display: flex;
