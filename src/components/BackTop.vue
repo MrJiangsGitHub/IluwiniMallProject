@@ -5,6 +5,7 @@
 </template>
 
 <script>
+import { throttle } from "../util/tool.js";
 export default {
   //滚动优化由用户决定滚动高度显示，通过prpos父传子，传递数据来显示返回顶部按钮
   props: {
@@ -23,6 +24,7 @@ export default {
     documentTop(event) {
       //拿到视口高度
       let scroTop = document.documentElement.scrollTop || document.body.scrollTop;
+      console.log("11", scroTop);
       //   对比如果视口高度高于500显示回到顶部按钮，反之隐藏 这里也可以通过this拿到props传来的数据
       if (scroTop >= this.scrollTop) {
         this.isshow = true;
@@ -36,8 +38,8 @@ export default {
     },
   },
   mounted() {
-    //绑定滚动事件
-    document.addEventListener("scroll", this.documentTop);
+    //绑定滚动事件 节流优化throttle()
+    document.addEventListener("scroll", throttle(this.documentTop, 500));
   },
   destroyed() {
     //    解绑事件

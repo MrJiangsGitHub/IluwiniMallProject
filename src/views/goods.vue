@@ -77,6 +77,7 @@ export default {
       this.onLoad();
     },
     handlist(data,event){
+      console.log(data);
         this.$router.push('/goodsDetails/' + data.id)
     }
   },

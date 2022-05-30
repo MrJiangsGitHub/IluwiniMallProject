@@ -29,7 +29,7 @@
     <!-- 底部加入购物车按钮 -->
     <van-goods-action>
       <van-goods-action-icon icon="chat-o" text="客服" dot />
-      <van-goods-action-icon icon="cart-o" text="购物车" to="/home/shopcar" :badge="$store.getters.goodtotal" />
+      <van-goods-action-icon icon="cart-o" text="购物车" to="/home/shopcar" :badge="$store.getters.getCarTotalNumber" />
       <van-goods-action-button type="warning" text="加入购物车" @click="putcar(true)" />
       <van-goods-action-button type="danger" text="立即购买" @click="buycar(false)" />
     </van-goods-action>
@@ -62,11 +62,12 @@ import { goodsListlunbo, goodsListinfo } from "../api/goods.js";
 import { ImagePreview } from "vant";
 
 export default {
-  props: ["id"],
+  // props: ["id"],
   data() {
     return {
       detlilubo: [],
       goodsinfo: {},
+      id:this.$route.params.id,
       show: false,
       showAddCartBtn: true, //是否显示购物车的按钮
       sku: {
@@ -89,13 +90,15 @@ export default {
   },
   methods: {
     async _goodsListlunbo() {
-      let { message } = await goodsListlunbo(this.id);
+      let  {message}  = await goodsListlunbo(this.id);
+      console.log('轮播：',message);
       this.detlilubo = message;
       //   赋值给sku 商品信息里面的商品图片
       this.goods.picture = message[0].src;
     },
     async _goodsListinfo() {
-      let { message } = await goodsListinfo(this.id);
+      let  {message}  = await goodsListinfo(this.id);
+      console.log('info',message);
       this.goodsinfo = message;
       this.sku.price = message.sell_price;
       this.sku.stock_num = message.stock_quantity;
@@ -131,7 +134,7 @@ export default {
     //   拿到价格
       let {sell_price}=this.goodsinfo
     //   构造购物车的数据结构
-    let item = {id:goodsId,Number:selectedNum,price:sell_price,selected:true}
+    let item = {id:goodsId,number:selectedNum,price:sell_price,selected:true}
     this.$store.commit('addCarData',item)
       this.show = false; 
     },
@@ -142,7 +145,7 @@ export default {
     //   拿到价格
       let {sell_price}=this.goodsinfo
     //   构造购物车的数据结构
-    let result = {id:goodsId,Number:selectedNum,price:sell_price,selected:true}
+    let result = {id:goodsId,number:selectedNum,price:sell_price,selected:true}
     this.$store.commit('addBuyData',result)
    this.$router.push('/home/shopcar')
     }

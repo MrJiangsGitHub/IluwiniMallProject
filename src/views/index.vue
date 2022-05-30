@@ -1,10 +1,14 @@
 <template>
   <div>
+    <keep-alive>
+      
     <router-view></router-view>
+    
+    </keep-alive>
        
     <van-tabbar v-model="active" active-color="#ee0a24" inactive-color="#000">
       <van-tabbar-item icon="home-o" to="/home/index">首页</van-tabbar-item>
-      <van-tabbar-item icon="cart-o" to="/home/shopcar" :badge="$store.getters.goodtotal" >购物车</van-tabbar-item>
+      <van-tabbar-item icon="cart-o" to="/home/shopcar" :badge="$store.getters.getCarTotalNumber" >购物车</van-tabbar-item>
       <van-tabbar-item icon="friends-o" to="/home/myuser">个人中心</van-tabbar-item>
     </van-tabbar>
   </div>

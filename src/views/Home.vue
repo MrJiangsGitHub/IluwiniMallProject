@@ -6,7 +6,7 @@
         <div>
           <img src="../asster/images/favicon.ico" alt="" />
         </div>
-        <van-search v-model="value" placeholder="请输入搜索关键词" />
+        <van-search v-model="value"   placeholder="请输入搜索关键词" @focus="$router.push('/home/index/search')" />
       </div>
     </van-sticky>
     <!-- 轮播图 -->
@@ -34,20 +34,21 @@
     </div>
     <!-- 回到顶部组件 -->
     <BackTop :scrollTop="800" />
+    <router-view></router-view>
   </div>
 </template>
 <script>
-import BackTop from "../components/BackTop.vue";
-import good from "../components/good.vue";
-import { fetchlunbo, fetchgoodslist } from "../api/home.js";
-import png1 from "../asster/images/1.png";
-import png2 from "../asster/images/2.png";
-import png3 from "../asster/images/3.png";
-import png4 from "../asster/images/4.png";
-import png5 from "../asster/images/5.png";
-import png6 from "../asster/images/6.png";
-import png7 from "../asster/images/7.png";
-import morePng from "../asster/images/more.png";
+import BackTop from "@/components/BackTop.vue";
+import good from "@/components/good.vue";
+import { fetchlunbo, fetchgoodslist } from "@/api/home.js";
+import png1 from "@/asster/images/1.png";
+import png2 from "@/asster/images/2.png";
+import png3 from "@/asster/images/3.png";
+import png4 from "@/asster/images/4.png";
+import png5 from "@/asster/images/5.png";
+import png6 from "@/asster/images/6.png";
+import png7 from "@/asster/images/7.png";
+import morePng from "@/asster/images/more.png";
 export default {
   data() {
     return {
@@ -63,7 +64,7 @@ export default {
         { text: "生活缴费", img: png4 },
         { text: "领津贴", img: png5 },
         { text: "plus会员", img: png6 },
-        { text: "领乐豆", img: png7 },
+        { text: "领维尼豆", img: png7 },
         { text: "更多", img: morePng },
       ],
     };
